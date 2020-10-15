@@ -7,4 +7,4 @@ Create a docker compose boilerplate
 
 ## Branch list
 - main 
-- 
+- elasticsearch
