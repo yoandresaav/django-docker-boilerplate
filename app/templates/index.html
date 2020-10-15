@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form-input" method="POST">
+        {% csrf_token %}
+        <label>Press enter to find</label>
+        <input name="search" id="find-input" placeholder="find title post" />
+    </form>
+    <ul>
+        {% for result in results %}
+            <li>{{ result.title }}</li>
+        {% empty%}
+            <h3>No hay resultados</h3>
+        {% endfor %}
+    </ul>
+    
+    <script>
+        document.getElementById('find-input').addEventListener('keypress', function(e){
+            if (e.srcElement.value !== '' && e.keyCode === 13){
+                getDataServer(e.srcElement.value)
+            }
+        })
+        function getDataServer(text){
+            console.log(text)
+            var form = new FormData(document.getElementById('form-input'));
+            fetch('/', {
+                method: 'POST',
+                body: form
+            })
+            .catch((e) => console.error(e))
+
+        }
+    </script>
+</body>
+</html>
